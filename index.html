@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Submission</title>
+    <style>
+        .popup {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        .close-btn {
+            background-color: #c3e6cb;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .close-btn:hover {
+            background-color: #9fd8ab;
+        }
+    </style>
+    <script>
+        function submitForm(event) {
+            event.preventDefault();
+
+            // Collect form data
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const message = document.getElementById("message").value;
+
+            // Create the query string with form data
+            const queryString = `?name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&message=${encodeURIComponent(message)}`;
+
+            // Show success popup
+            document.getElementById("popup").style.display = "block";
+
+            // Set the link to the other domain with query string
+            document.getElementById("redirectLink").href = "https://supportteam247.github.io/display.html/" + queryString;
+        }
+
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+        }
+    </script>
+</head>
+<body>
+    <h2>Submit Your Details</h2>
+    <form onsubmit="submitForm(event)">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="message">Message:</label><br>
+        <textarea id="message" name="message" required></textarea><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <!-- Success Popup -->
+    <div id="popup" class="popup">
+        <p>Success! Your details have been submitted.</p>
+        
+        <a id="redirectLink" href="#" class="close-btn">Go to Display Page</a> 
+    </div>
+</body>
+</html>
